@@ -3,6 +3,8 @@ require(rpart)
 train <- read.csv('./data/train.csv')
 test <- read.csv('./data/test.csv')
 
+
+# TODO: Before I do anything else, I should really deal with the missing data.
 model.train <- rpart(
   Survived ~ Sex + Age + SibSp + Fare + Embarked + Pclass + Parch,
   method = "class",
@@ -12,16 +14,9 @@ model.train <- rpart(
 
 
 
-# model.train.pruned = prune(model.train, cp = 0.022)
 
-# printcp(model.train)
-# plotcp(model.train)
-# 
-# printcp(model.train.pruned)
-# plotcp(model.train.pruned)
-# 
-# cptarg = sqrt(model.train$cptable[4,1] * model.train$cptable[5,1])
-# model.train.pruned = prune(model.train, cp=cptarg)
+printcp(model.train)
+plotcp(model.train)
 
 
 cprow <- model.train$cptable[model.train$cptable[,4] == min(model.train$cptable[,4]),]
