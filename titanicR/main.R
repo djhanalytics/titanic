@@ -1,7 +1,7 @@
 require(rpart)
 
-train <- read.csv('E:/Kaggle/Titanic/train.csv')
-test <- read.csv('E:/Kaggle/Titanic/test.csv')
+train <- read.csv('./data/train.csv')
+test <- read.csv('./data/test.csv')
 
 model.train <- rpart(
   Survived ~ Sex + Age + SibSp + Fare + Embarked + Pclass + Parch,
@@ -45,6 +45,6 @@ text(fit, use.n = T, digits = 3, cex = 0.6)
 Prediction <- predict(fit, test, type = "class")
 # Prediction
 submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
-submit
-write.csv(submit, file = "myfirstdtree.csv", row.names = FALSE)
+# submit
+write.csv(submit, file = "./submissions/titanicdtree.csv", row.names = FALSE)
 

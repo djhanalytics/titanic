@@ -1,8 +1,8 @@
 
 library(rpart)
 
-train <- read.csv('E:/Kaggle/Titanic/train.csv')
-test <- read.csv('E:/Kaggle/Titanic/test.csv')
+train <- read.csv('./data/train.csv')
+test <- read.csv('./data/test.csv')
 
 fit <- rpart(
   Survived ~ Sex + Age + SibSp + Fare + Embarked + Pclass + Parch,
@@ -22,4 +22,4 @@ Prediction <- predict(fit, test, type = "class")
 Prediction
 submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
 submit
-write.csv(submit, file = "myfirstdtree.csv", row.names = FALSE)
+write.csv(submit, file = "./submissions/trevorstephensdtree.csv", row.names = FALSE)
