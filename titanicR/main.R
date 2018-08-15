@@ -56,20 +56,26 @@ generate_pred(train, "pruned")
 md.pattern(train[complete.cases(train),])
 generate_pred(train[complete.cases(train),], "deleted")
 
-# 2. Impute Mean/Median/Mode
+# 2. Impute Mean/Median
 # impute(train$Age, mean)
 train.imputed.mean$Age[is.na(train$Age)] <- mean(train$Age, na.rm = T)
 generate_pred(train.imputed.mean, "mean")
 # impute(train$Age, median)
 train.imputed.median$Age[is.na(train$Age)] <- median(train$Age, na.rm = T)
 generate_pred(train.imputed.median, "median")
-# impute(train$Age, mode)
-train.imputed.mode$Age[is.na(train$Age)] <- mode(train$Age)
 
-# 3. Predict
-# This involves predicting the Age (in this case) using rpart
+# 3. Linear Regression
+train.correlate <- train
+nums <- unlist(lapply(train.correlate, is.numeric))
+cor(train[nums], use="complete.obs")
+symnum(cor(train[nums], use="complete.obs"))
+#this doesn't seem super correlated with anything.
 
+# 4. kNN
+install.packages("VIM")
+library(VIM)
 
-
-
+train.knn <- kNN(train)
+train.knn <- subset(train.knn, select=c(1:12))
+generate_pred(train.knn, "knn")
 
