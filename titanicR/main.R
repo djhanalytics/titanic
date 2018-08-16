@@ -79,3 +79,16 @@ train.knn <- kNN(train)
 train.knn <- subset(train.knn, select=c(1:12))
 generate_pred(train.knn, "knn")
 
+# 5. Predict the ages with mice?
+library(mice)
+# No iteration. But I want to get Predictor-Matrix
+init = mice(train, maxit=0) 
+predM = init$predictorMatrix
+# Do not use following columns to impute values in 'Age'. Use the rest.
+predM[, c("PassengerId", "Name","Ticket","Cabin")]=0    
+imp<-mice(train, m=5, predictorMatrix = predM)
+# Get the final data-frame with imputed values filled in 'Age'
+train.mice <- complete(imp)
+View(train.mice)
+md.pattern(train.mice)
+generate_pred(train.mice, "mice")
