@@ -92,3 +92,10 @@ train.mice <- complete(imp)
 View(train.mice)
 md.pattern(train.mice)
 generate_pred(train.mice, "mice")
+
+# 6. Predict age with rpart?
+
+train.model.age <- rpart(
+  Age ~ Fare + Sex
+)
+

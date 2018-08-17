@@ -1,0 +1,37 @@
+---
+title: "Titanic"
+author: "David J. Hughes"
+date: "August 16, 2018"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## What Do We Have?
+
+We have two data sets, train.csv & test.csv. Here's the structure of train:
+
+```{r train}
+str(train)
+```
+
+Here's test:
+```{r test}
+str(test)
+```
+
+There are a couple of important things to notice here. First, the train data has an extra column. The test data does not have 'Survived' column. That's because Kaggle isn't about to give us the answer key. Once we build our model against the training data, we fit it to the test data and generate our submission which we then submit to be scored on Kaggle.com.
+ 
+```{r train$Age}
+summary(train$Age)
+```
+
+Secondly, looking at the training data summary indicates that there are a lot of missing ages. I'm certainly going to have to do something about that. I'll be imputing the data (If you're new, Google impute data) in a number of different ways. That'll come later.
+
+```{r train$Name}
+head(train$Name)
+```
+
+Something to consider is the Name column. It may be possible to be a little clever and split those names up to get the titles as they sometimes indicate age. For instance, Master would be for a boy, Mr. and Mrs. would indicate adults probably, though it's a pretty large bucket. Miss is a bit of a gotcha, as it could either be a young girl or an old woman. I'm not sure it's entirely worth the effort. We'll see.
